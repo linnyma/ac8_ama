@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tablero de Pobreza en México (2008-2018)</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart', 'bar', 'geochart', 'scatter']});
+        google.charts.setOnLoadCallback(drawCharts);
+
+        function drawCharts() {
+            // Gráfico 1: Evolución de la Pobreza Total
+            var dataTotal = google.visualization.arrayToDataTable([
+                ['Año', 'Pobreza Total (%)'],
+                ['2008', 44.4], ['2010', 46.1], ['2012', 45.5], ['2014', 46.2], ['2016', 43.6], ['2018', 41.9]
+            ]);
+
+            var optionsTotal = {title: 'Evolución de la pobreza total (2008-2018)', curveType: 'function', colors: ['#9AE1A5']};
+
+            var chartTotal = new google.visualization.LineChart(document.getElementById('chart_total'));
+            chartTotal.draw(dataTotal, optionsTotal);
+
+            // Gráfico 2: Evolución de la Pobreza Extrema
+            var dataExtrema = google.visualization.arrayToDataTable([
+                ['Año', 'Pobreza Extrema (%)'],
+                ['2008', 11.0], ['2010', 11.3], ['2012', 9.8], ['2014', 9.5], ['2016', 7.6], ['2018', 7.4]
+            ]);
+
+            var optionsExtrema = {title: 'Evolución de la pobreza extrema (2008-2018)', curveType: 'function', colors: ['#E1B5D4']};
+
+            var chartExtrema = new google.visualization.LineChart(document.getElementById('chart_extrema'));
+            chartExtrema.draw(dataExtrema, optionsExtrema);
+
+            // Gráfico 3: Pobreza Rural vs Urbana (Scatter Chart)
+            var dataRuralUrbana = google.visualization.arrayToDataTable([
+                ['Año', 'Rural (%)', 'Urbana (%)'],
+                ['2008', 62.5, 38.9], ['2010', 61.1, 41.1], ['2012', 60.6, 40.6], ['2014', 61.1, 41.5], ['2016', 58.2, 39.0], ['2018', 55.3, 37.6]
+            ]);
+
+            var optionsRuralUrbana = {title: 'Comparación de pobreza rural vs urbana (2008-2018)', colors: ['#E0CF8D', '#9EA4E5']};
+
+            var chartRuralUrbana = new google.visualization.ScatterChart(document.getElementById('chart_rural_urbana'));
+            chartRuralUrbana.draw(dataRuralUrbana, optionsRuralUrbana);
+
+            // Gráfico 4: Carencias Sociales (Donut Chart)
+            var dataCarencias = google.visualization.arrayToDataTable([
+                ['Carencia Social', '2018 (%)'],
+                ['Rezago educativo', 16.9],
+                ['Servicios de salud', 16.2],
+                ['Seguridad social', 57.3],
+                ['Calidad vivienda', 11.1],
+                ['Servicios básicos vivienda', 19.8],
+                ['Acceso alimentación', 20.4]
+            ]);
+
+            var optionsCarencias = {title: 'Distribución de carencias sociales (2018)', pieHole: 0.4, colors: ['#E6D8C1', '#E0BDE5', '#B5E2E5', '#C3E6B1', '#E6A99C', '#E5E391']};
+
+            var chartCarencias = new google.visualization.PieChart(document.getElementById('chart_carencias'));
+            chartCarencias.draw(dataCarencias, optionsCarencias);
+
+            // Gráfico 5: Pobreza por Estado 2008 vs 2018
+            var dataEstados = google.visualization.arrayToDataTable([
+                ['Estado', '2008 (%)', '2018 (%)'],
+                ['Chiapas', 77.0, 76.4],
+                ['Guerrero', 68.4, 66.5],
+                ['Oaxaca', 61.8, 66.4],
+                ['Veracruz', 51.2, 61.8],
+                ['Aguascalientes', 36.0, 32.0],
+                ['Hidalgo', 50.6, 42.9],
+                ['Tlaxcala', 59.7, 49.1],
+                ['Colima', 31.4, 35.8]
+            ]);
+
+            var optionsEstados = {title: 'Pobreza por estado (2008 vs 2018)', colors: ['#B1DFE6', '#83C4E6']};
+
+            var chartEstados = new google.visualization.ColumnChart(document.getElementById('chart_estados'));
+            chartEstados.draw(dataEstados, optionsEstados);
+
+            // Gráfico 6: Mapa Geográfico de Pobreza en 2018
+            var dataGeo = google.visualization.arrayToDataTable([
+                ['Estado', 'Pobreza 2018 (%)'],
+                ['MX-CHP', 76.4],
+                ['MX-GRO', 66.5],
+                ['MX-OAX', 66.4],
+                ['MX-VER', 61.8],
+                ['MX-AGU', 32.0],
+                ['MX-HID', 42.9],
+                ['MX-TLA', 49.1],
+                ['MX-COL', 35.8]
+            ]);
+
+            var optionsGeo = {region: 'MX', displayMode: 'regions', resolution: 'provinces', title: 'Mapa de Pobreza en México (2018)', colorAxis: {colors: ['#FFD700', '#FF5733', '#900C3F']}};
+
+            var chartGeo = new google.visualization.GeoChart(document.getElementById('chart_geo'));
+            chartGeo.draw(dataGeo, optionsGeo);
+        }
+    </script>
+</head>
+<body>
+    <h1>Tablero de Pobreza en México (2008-2018)</h1>
+
+    <h2>1. Evolución de la Pobreza Total</h2>
+    <div id="chart_total" style="width: 600px; height: 400px;"></div>
+
+    <h2>2. Evolución de la Pobreza Extrema</h2>
+    <div id="chart_extrema" style="width: 600px; height: 400px;"></div>
+
+    <h2>3. Comparación de Pobreza Rural vs Urbana</h2>
+    <div id="chart_rural_urbana" style="width: 600px; height: 400px;"></div>
+
+    <h2>4. Distribución de Carencias Sociales (2018)</h2>
+    <div id="chart_carencias" style="width: 600px; height: 400px;"></div>
+
+    <h2>5. Pobreza por Estado (2008 vs 2018)</h2>
+    <div id="chart_estados" style="width: 600px; height: 400px;"></div>
+
+    <h2>6. Mapa de Pobreza en México (2018)</h2>
+    <div id="chart_geo" style="width: 800px; height: 600px;"></div>
+</body>
+</html>
